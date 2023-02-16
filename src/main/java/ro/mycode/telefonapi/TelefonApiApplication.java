@@ -16,16 +16,14 @@ public class TelefonApiApplication {
 	@Bean
 	CommandLineRunner commandLineRunner(TelefonRepo telefonRepo){
 		return  args->{
-//			for(int i=0;i<100;i++){
-//				telefonRepo.getAllMarci().forEach((e)->{
-//					System.out.println(e);
-//
-//				});
+
 		};
 
 
 	}
 
 }
+
+
 
 
