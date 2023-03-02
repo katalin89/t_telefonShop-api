@@ -26,6 +26,21 @@ public interface TelefonRepo extends JpaRepository<Telefon,Long> {
 
     Telefon findByModel(String model);
 
+    @Transactional
+    @Modifying
+    @Query("select distinct t from Telefon  t order by t.pret")
+    List<Telefon>sortByPrice();
+
+    @Transactional
+    @Modifying
+    @Query("select distinct t from Telefon t order by  t.marca")
+    List<Telefon> sortByMarca();
+
+    @Transactional
+    @Modifying
+    @Query("select distinct  t from Telefon  t order by t.model")
+    List<Telefon>sortByModel();
+
 }
 
 
