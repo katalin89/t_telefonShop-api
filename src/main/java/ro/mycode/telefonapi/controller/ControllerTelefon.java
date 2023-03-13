@@ -6,6 +6,7 @@ import ro.mycode.telefonapi.dtos.TelefonDTO;
 import ro.mycode.telefonapi.model.Telefon;
 import ro.mycode.telefonapi.repositpry.TelefonRepo;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -32,13 +33,14 @@ public class ControllerTelefon {
 
     //enpoint care sa returneze toate obiectele care au marca respectiva,primeste ca parametru marca
 
-    @GetMapping("api/v1/{marca}")
+    @GetMapping("api/v1/phones/{marca}")
     public List<Telefon> getAllTelefoaneByMarca(@PathVariable String marca) {
         return telefonRepo.getAllTelefoaneByMarca(marca);
     }
 
     @PostMapping("api/v1/add")
-    public Telefon addTelefon(@RequestBody Telefon telefon) {
+    public Telefon addTelefon(@Valid @RequestBody Telefon telefon) {
+        System.out.println( "Telefon: "+telefon);
         this.telefonRepo.save(telefon);
 
         return telefon;
@@ -58,7 +60,7 @@ public class ControllerTelefon {
     }
 
     @PutMapping("api/v1/update")
-    public Telefon updateTelefon(@RequestBody TelefonDTO telefon) {
+    public Telefon updateTelefon(@Valid  @RequestBody TelefonDTO telefon) {
         Telefon t = telefonRepo.findByModel(telefon.getModel());
         if (telefon.getPret() != 0) {
             t.setPret(telefon.getPret());
@@ -94,7 +96,7 @@ public class ControllerTelefon {
     public  List<Telefon>sortByMarca(){
         return telefonRepo.sortByMarca();
     }
-    
+
     @GetMapping("api/v1/sortByModel")
     public List<Telefon>sortByModel(){
         return telefonRepo.sortByModel();
