@@ -38,8 +38,19 @@ public class Telefon implements Comparable<Telefon> {
 
     @Override
     public int compareTo(Telefon o) {
-        if(this)
+        if(this.model.compareTo(o.model)>0){
+            return 1;
+        }
+        if(this.model.compareTo(o.model)<0){
+            return -1;
+        }else
         return 0;
+    }
+
+    @Override
+    public  boolean equals(Object o){
+        Telefon telefon=(Telefon) o;
+        return  this.model.equals(telefon.model);
     }
 
 }
