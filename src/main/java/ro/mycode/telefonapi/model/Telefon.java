@@ -6,53 +6,40 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Size;
 
+//    public Telefon(String marca, String model, int pret) {
 @Data
-@Entity
-@Table(name="telefoane")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Telefon  implements Comparable<Telefon>{
-    @GeneratedValue(strategy= GenerationType.AUTO)
+@Entity(name = "Telefon")
+@Table(name = "telefoane")
+
+public class Telefon implements Comparable<Telefon> {
     @Id
-    private long id;
+    @SequenceGenerator(name = "telefon_sequence", sequenceName = "telefon_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "telefon_sequence")
+
+
+    private Long id;
+
+    @Column(name = "marca", nullable = false)
+    @Size(min = 4, message = "Marca trebuie sa fie de minim 4 caractere")
     private String marca;
+
+    @Column(name = "model", nullable = false)
+    @Size(max = 20, message = "Model poate fi max 20 de caractere")
     private String model;
+
+    @Column(name = "pret")
+    @Max(value = 30000, message = "Pretul nu poate depasi 30000 lei")
     private int pret;
-
-    public Telefon(String marca, String model, int pret) {
-        this.marca = marca;
-        this.model = model;
-        this.pret = pret;
-    }
-
-    @Override
-    public  String toString(){
-        String text="";
-        text+=id+","+marca+","+model+","+pret;
-        return text;
-
-
-
-    }
 
     @Override
     public int compareTo(Telefon o) {
+        if(this)
         return 0;
     }
-
-
-    public  int compare(Object o){
-        Telefon telefon=(Telefon) o;
-        if(this.pret>telefon.pret)
-        {
-            return 1;
-        }else if(this.pret<telefon.pret){
-            return 0;
-        }
-        return -1;
-
-    }
-
 
 }

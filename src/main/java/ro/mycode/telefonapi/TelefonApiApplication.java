@@ -16,6 +16,9 @@ public class TelefonApiApplication {
 	@Bean
 	CommandLineRunner commandLineRunner(TelefonRepo telefonRepo){
 		return  args->{
+			telefonRepo.getAllMarci().forEach((e)->{
+				System.out.println(e);
+			});
 
 		};
 
