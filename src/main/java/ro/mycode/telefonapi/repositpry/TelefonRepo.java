@@ -18,6 +18,9 @@ public interface TelefonRepo extends JpaRepository<Telefon,Long> {
     @Query("select t from Telefon  t where t.marca=?1")
     List<Telefon>getAllTelefoaneByMarca(String marca);
 
+    @Query("select t from Telefon  t where t.model=?1")
+    List<Telefon>getAllTelefoaneByModel(String model);
+
     @Transactional
     @Modifying
     @Query("delete from Telefon t where t.id=?1")
