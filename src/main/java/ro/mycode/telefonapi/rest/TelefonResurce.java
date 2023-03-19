@@ -11,7 +11,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/masina")
+@RequestMapping("/api/v1/telefon")
 public class TelefonResurce {
 
     private TelefonService telefonService;
@@ -30,6 +30,12 @@ public class TelefonResurce {
     ResponseEntity deleteByModel(@PathVariable String model){
         this.telefonService.deleteTelefonByModel(model);
         return  new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping("/add")
+    public  ResponseEntity addTelefon(@RequestBody Telefon telefon){
+        telefonService.addTelefon(telefon);
+        return  new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/update")

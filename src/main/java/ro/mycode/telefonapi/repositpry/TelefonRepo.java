@@ -24,10 +24,10 @@ public interface TelefonRepo extends JpaRepository<Telefon,Long> {
     @Transactional
     @Modifying
     @Query("delete from Telefon t where t.id=?1")
-    void deleteTelefonByMarca(String marca);
+    void deleteByMarca(String marca);
 
 
-    Telefon findByModel(String model);
+    Telefon findTelefonByModel(String model);
 
     @Transactional
     @Modifying
@@ -44,6 +44,13 @@ public interface TelefonRepo extends JpaRepository<Telefon,Long> {
     @Query("select distinct  t from Telefon  t order by t.model")
     List<Telefon>sortByModel();
 
+    @Transactional
+    @Modifying
+    @Query("select t from Telefon  t where t.marca=?1 and t.model=?2" )
+    List<Telefon>findTelefonWith(String marca,String model);
+
 }
+
+
 
 

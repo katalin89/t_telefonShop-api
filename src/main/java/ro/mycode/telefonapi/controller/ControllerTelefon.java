@@ -59,7 +59,7 @@ public class ControllerTelefon {
 
     @PutMapping("api/v1/update")
     public Telefon updateTelefon(@RequestBody TelefonDTO telefon) {
-        Telefon t = telefonRepo.findByModel(telefon.getModel());
+        Telefon t = telefonRepo.findTelefonByModel(telefon.getModel());
         if (telefon.getPret() != 0) {
             t.setPret(telefon.getPret());
         } else System.out.println("Nu are valoare");

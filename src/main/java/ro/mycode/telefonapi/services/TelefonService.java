@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import ro.mycode.telefonapi.dtos.TelefonDTO;
 import ro.mycode.telefonapi.exceptii.ExceptiiTelefonDBEmpty;
+import ro.mycode.telefonapi.exceptii.ExistingTelefon;
 import ro.mycode.telefonapi.exceptii.TelefonNotFoundException;
 import ro.mycode.telefonapi.model.Telefon;
 import ro.mycode.telefonapi.repositpry.TelefonRepo;
@@ -31,7 +32,7 @@ public class TelefonService {
     }
 
     public  void deleteTelefonByModel(String model)throws TelefonNotFoundException{
-        Telefon byModel=telefonRepo.findByModel(model);
+        Telefon byModel=telefonRepo.findTelefonByModel(model);
         if(byModel != null){
             telefonRepo.getAllTelefoaneByModel(model);
         }else{
@@ -40,15 +41,25 @@ public class TelefonService {
     }
     @Transactional
     public  void addTelefon(Telefon telefon) throws TelefonNotFoundException{
+        List<Telefon> telefonWith=telefonRepo.findTelefonWith(telefon.getMarca(), telefon.getModel());
 
+        if(telefonWith.size()>0){
+
+            throw  new ExistingTelefon();
+
+        }
+
+        this.telefonRepo.saveAndFlush(telefon);
     }
+
+
 
     @Transactional
     @Modifying
 
     public  void update(@RequestBody TelefonDTO telefon,String model)throws TelefonNotFoundException{
 
-        Telefon t=telefonRepo.findByModel(telefon.getModel());
+        Telefon t=telefonRepo.findTelefonByModel(telefon.getModel());
 
         if(t==null){
             throw new TelefonNotFoundException();
