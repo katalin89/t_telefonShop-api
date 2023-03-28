@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/telefon")
+@CrossOrigin
 public class TelefonResurce {
 
     private TelefonService telefonService;
