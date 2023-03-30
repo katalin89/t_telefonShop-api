@@ -41,9 +41,9 @@ public class TelefonService {
     }
     @Transactional
     public  void addTelefon(Telefon telefon) throws TelefonNotFoundException{
-        List<Telefon> telefonWith=telefonRepo.findTelefonWith(telefon.getMarca(), telefon.getModel());
+        Telefon telefonWith=telefonRepo.findTelefonByModel( telefon.getModel());
 
-        if(telefonWith.size()>0){
+        if(telefonWith!=null){
 
             throw  new ExistingTelefon();
 
@@ -76,6 +76,22 @@ public class TelefonService {
             t.setPret(telefon.getPret());
         }
 
+    }
+
+    public List<Telefon>sortByMarca(){
+        return  telefonRepo.sortByMarca();
+    }
+
+    public List<Telefon>sortByModel(){
+        return telefonRepo.sortByModel();
+    }
+
+    public List<Telefon>sortByPret(){
+        return telefonRepo.sortByPrice();
+    }
+
+    public  void deleteById(long id){
+        telefonRepo.deleteById(id);
     }
 
 }
